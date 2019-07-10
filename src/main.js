@@ -4,9 +4,11 @@ import Vue from 'vue'
 import App from './App'
 import router from './router'
 import BootstrapVue from 'bootstrap-vue'
+import VueResource from 'vue-resource'
 
 Vue.config.productionTip = false
 Vue.use(BootstrapVue)
+Vue.use(VueResource)
 /* eslint-disable no-new */
 
 new Vue({
@@ -14,10 +16,5 @@ new Vue({
   router,
   components: { App },
   template: '<App/>',
-  data(){
-json:null
-  }
-});
-getJson('https://tmsapi1.azurewebsites.net/api/MornitorSystem/CheckSystem',function(json){
-  app.json = json;
+  
 });

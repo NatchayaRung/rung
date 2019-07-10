@@ -5,7 +5,7 @@ import mongo from '@/components/mongo'
 import show from '@/components/show'
 import database from '@/components/database'
 import BootstrapVue from 'bootstrap-vue'
-import js from '@/components/js'
+import jason from '@/components/jason'
 Vue.use(Router)
 Vue.use(BootstrapVue)
 
@@ -33,8 +33,8 @@ export default new Router({
     },
     {
       path: '/js',
-      name: 'js',
-      component: js
+      name: 'jason',
+      component: jason
     },
   ]
 })

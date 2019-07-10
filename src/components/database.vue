@@ -1,31 +1,55 @@
 <template>
   <div>
     <h2>Database :</h2>
-    <div class="center">
-      <b-table striped hover :items="items" :fields="fields" style="width:100%"></b-table>
-    </div>
+    
+      <b-table striped hover :items= "items" :fields="fields" style="width:100%" ></b-table>
+      <ul v-for ="item in items">
+        {{item.id}}
+        {{item.catagory}}
+         {{item.detail}}
+          {{item.logDate}}
+      </ul>
+    <button type="submit" @click=" getData()" class="btn btn-primary">reload</button>
+   
     <br />
     <br />
   </div>
 </template>
 
 <script>
+const API_URL =
+  "https://tmsapi1.azurewebsites.net/api/MornitorSystem/GetTranferDataLogs";
 export default {
   data() {
     return {
-      fields: ["Id", "Catagory", "Detail", "Date-Time"],
+      // fields: ["Id", "Catagory", "Detail", "Date-Time"],
       items: [
         {
-          isActive: true,
-          age: 40,
-          first_name: "Dickerson",
-          last_name: "Macdonald"
-        },
-        { isActive: false, age: 21, first_name: "Larsen", last_name: "Shaw" },
-        { isActive: false, age: 89, first_name: "Geneva", last_name: "Wilson" },
-        { isActive: true, age: 38, first_name: "Jami", last_name: "Carney" }
+          Id: "",
+          Catagory: "",
+          Detail: "",
+         logDate: ""
+        }
       ]
     };
+  },
+  methods: {
+    getData() {
+      this.$http
+        .get(
+          "https://tmsapi1.azurewebsites.net/api/MornitorSystem/GetTranferDataLogs"
+        )
+        .then(
+          response => {
+            console.log(response.json());
+
+            this.items = response.body;
+          },
+          () => {
+            this.items = response.json();
+          }
+        );
+    }
   }
 };
 </script>

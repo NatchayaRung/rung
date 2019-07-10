@@ -1,25 +1,64 @@
 <template>
   <div>
     <h2>Show status :</h2>Id:
-    <input type="text" size="50" />
+    <input type="text " v-model="res.result" size="50" />
+
+    <br />
+    <!-- <li>
+      <ul v-for="item in res1">
+        {{item.id}}
+        {{item.imei}}
+      </ul>
+    </li> -->
+    <br />
+    <button type="submit" @click=" getData()" class="btn btn-primary">reload</button>
     <br />
     <br />
-    <button type="submit" @click=" ReloadData()" class="btn btn-primary">reload</button>
-    <br />
-    <br />
-    
+    <hr />
   </div>
 </template>
 
+
 <script>
+const API_URL =
+  "https://tmsapi1.azurewebsites.net/api/MornitorSystem/CheckSystem";
+
 export default {
-  props: {
-    result: { type: String }
+  data: function() {
+    return {
+      res: Object,
+      res1: []
+    };
   },
   methods: {
-    ReloadData(value) {
-      aob = it.result;
-    }
+    getData() {
+      this.$http.get(API_URL).then(
+        response => {
+          console.log(response.json());
+
+          this.res = response.body;
+        },
+        () => {
+          this.res = response.json();
+        }
+      );
+    },
+    // getData1() {
+    //   this.$http
+    //     .get(
+    //       "https://tmsapi1.azurewebsites.net/api/MornitorSystem/GetLastMongoData"
+    //     )
+    //     .then(
+    //       response => {
+    //         console.log(response.json());
+
+    //         this.res1 = response.body;
+    //       },
+    //       () => {
+    //         this.res1 = response.json();
+    //       }
+    //     );
+    // }
   }
 };
 </script>

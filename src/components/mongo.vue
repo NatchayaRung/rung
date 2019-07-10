@@ -3,36 +3,27 @@
     <h2>Mongo table :</h2>
 
     <div>
-      <b-table :items="items" :busy="isBusy" class="mt-3" outlined>
+      <b-table :items="mongo" :busy="isBusy" class="mt-3" outlined>
         <div slot="table-busy" class="text-center text-danger my-2">
           <b-spinner class="align-middle"></b-spinner>
+          <ul v-for="item in mongo">
+            {{item.id}}
+            {{item.catagory}}
+            {{item.detail}}
+            {{item.logDate}}
+          </ul>
           <strong>Loading...</strong>
         </div>
       </b-table>
     </div>
-    <b-button @click="toggleBusy">Toggle Busy State</b-button>
     <br />
     <br />
-    <!-- <table style="width:100%">
- 
-    <thead>
-      <tr>
-        <th scope="col" style="text-align:center"><h3>Id</h3></th>
-        <th scope="col" style="text-align:center"><h3>Payload</h3></th>
-        <th scope="col" style="text-align:center"><h3>Timestamp</h3></th>
-        <th scope="col" style="text-align:center"><h3>Imei</h3></th> 
-      </tr>
-    </thead>
-    <tbody *ngFor="let itemmongo of mongo">
-      <tr>
-        <td scope="row">{{itemmongo.id}}</td>
-        <td>{{itemmongo.payload}}</td>
-        <td>{{itemmongo.timestamp}}</td>
-        <td>{{itemmongo.imei}}</td>
-        
-      </tr>
-    </tbody>
-    </table>-->
+    <button type="submit" @click=" getData()" class="btn btn-primary">reload</button>
+    <br />
+    <br />
+    <b-button @click="toggleBusy"> Busy State</b-button>
+    <br />
+    <br />
   </div>
 </template>
 
@@ -47,10 +38,10 @@ export default {
   data() {
     return {
       isBusy: false,
-      items: [
+      mongo: [
         { Id: "", Payload: "", Timestamp: "", Imei: "" },
         { Id: "", Payload: "", Timestamp: "", Imei: "" },
-        { Id: "", Payload: "", Timestampe: "", Imei: "" },
+        { Id: "", Payload: "", Timestamp: "", Imei: "" },
         { Id: "", Payload: "", Timestamp: "", Imei: "" }
       ]
     };
@@ -58,15 +49,24 @@ export default {
   methods: {
     toggleBusy() {
       this.isBusy = !this.isBusy;
+    },
+    getData() {
+      this.$http
+        .get(
+          "https://tmsapi1.azurewebsites.net/api/MornitorSystem/GetLastMongoData"
+        )
+        .then(
+          response => {
+            console.log(response.json());
+            this.mongo = response.body;
+          },
+          () => {
+            this.mongo = response.json();
+          }
+        );
     }
   }
 };
-// methods:{
-//      this.Http.get<mongo[]>('https://tmsapi1.azurewebsites.net/api/MornitorSystem/GetLastMongoData')
-//   .subscribe(it => {
-//     console.log(it)
-//     this.mongo = it;
-// }
 </script>
 
 <style scoped >

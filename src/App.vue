@@ -4,7 +4,7 @@
     <div class="col-xs-12">
       <app-home></app-home>
     </div>
-    <router-view />
+
   </div>
   </div>
 </template>
@@ -14,7 +14,7 @@ import home from "./components/home.vue";
 export default {
   name: "App",
   components: {
-    apphome: home
+    "app-home": home
   }
 };
 </script>

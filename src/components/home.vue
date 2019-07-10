@@ -15,14 +15,13 @@
           <b-col align-self="center">
             <app-mongo></app-mongo>
           </b-col>
-          <!-- <P>{{msg}}</P> -->
         </div>
       </div>
     </b-container>
     <br />
     <br />
     <div class="row">
-      <div class="col-xs-12 col-sm-6">
+      <div class="col-xs-12 col-sm-6 ">
         <app-database></app-database>
       </div>
       <div class="col-xs-12 col-sm-6">
@@ -42,8 +41,11 @@ import header from "./header.vue";
 import footer from "./footer.vue";
 import database from "./database.vue";
 import mqtt from "./mqtt.vue";
+const API_URL =
+  "https://tmsapi1.azurewebsites.net/api/MornitorSystem/CheckSystem";
 
 export default {
+  name: "home",
   components: {
     "app-header": header,
     "app-mongo": mongo,
@@ -51,11 +53,6 @@ export default {
     "app-database": database,
     "app-mqtt": mqtt,
     "app-footer": footer
-  },
-  data() {
-    return {
-      msg: "Welcome to Your Vue.js App"
-    };
   }
 };
 </script>
