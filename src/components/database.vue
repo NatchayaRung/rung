@@ -3,7 +3,7 @@
     <h2>Database :</h2>
     
       <b-table striped hover :items= "items" :fields="fields" style="width:100%" ></b-table>
-      <ul v-for ="item in items">
+      <ul v-for = "item in items">
         {{item.id}}
         {{item.catagory}}
          {{item.detail}}
