@@ -1,28 +1,40 @@
 <template>
   <div>
     <h2>Mqtt :</h2>
-
-    
-    <b-table :items="items">
-      <span slot="html" slot-scope="data" v-html="data.value"></span>
-    </b-table>
+    <br />
+    <h3>{{msg}}</h3>
+    <br />
+    <br />
+    <button type="submit" @click="showData()"  class="btn btn-primary">run</button>
+    <br />
+    <br />
   </div>
 </template>
-
 <script>
 export default {
   data() {
     return {
-       items: [
-          {
-            text: 'This is <i>escaped</i> content',
-            html: 'This is <i>raw <strong>HTML</strong></i> <span style="color:red">content</span>'
-          }
-        ]
+      msg: ""
     };
+  },
+
+  // mounted () {
+  //   this.$mqtt.subscribe('meitrek/gw/rtl')
+  // },
+
+  mqtt: {
+    "meitrek/gw/rtl"(data) {
+      this.msg = this.msg + data;
+    }
+  },
+  methods: {
+    showData() {
+      this.$mqtt.subscribe("meitrek/gw/rtl");
+    }
   }
 };
 </script>
+
 <style scoped>
 div {
   border: 1px solid palevioletred;
